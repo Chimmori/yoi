@@ -17,11 +17,16 @@ var statusTombolTranspose = false
 var statusTombolSkalar = false
 var statusTombolOrdo2 = false
 var statusTombolOrdo3 = false
+var duamatriksaktif = false
+var satumatriksaktif = false
 
 function getStatusTombol(buttonType){
   switch (buttonType) {
       case 'Tambah':
-        containerInput.innerHTML = "";
+        // containerInput.innerHTML = "";
+        if (statusTombolSkalar || statusTombolTranspose){
+          containerInput.innerHTML = "";
+        }
         statusTombolTambah = true;
         statusTombolKurang = false;
         statusTombolKali = false
@@ -31,7 +36,10 @@ function getStatusTombol(buttonType){
         break;
         
       case 'Kurang':
-        containerInput.innerHTML = "";
+        // containerInput.innerHTML = "";
+        if (statusTombolSkalar || statusTombolTranspose){
+          containerInput.innerHTML = "";
+        }
         statusTombolTambah = false;
         statusTombolKurang = true;
         statusTombolKali = false
@@ -41,7 +49,10 @@ function getStatusTombol(buttonType){
         break;
 
       case 'Kali':
-        containerInput.innerHTML = "";
+        // containerInput.innerHTML = "";
+        if (statusTombolSkalar || statusTombolTranspose){
+          containerInput.innerHTML = "";
+        }
         statusTombolTambah = false;
         statusTombolKurang = false;
         statusTombolKali = true;
@@ -76,8 +87,9 @@ function getStatusTombol(buttonType){
 }
 
 function tampilkanUIOrdo(){
-    containerOrdo.innerHTML = ""
-    if (statusTombolTambah || statusTombolKurang || statusTombolKali){
+    if (duamatriksaktif != true){
+      if (statusTombolTambah || statusTombolKurang || statusTombolKali ){
+        containerOrdo.innerHTML = "";
         let pmatriks1 = document.createElement('p')
         pmatriks1.innerText = "Matriks 1: "
 
@@ -136,40 +148,91 @@ function tampilkanUIOrdo(){
         containerOrdo.appendChild(pmatriks2)
         containerOrdo.appendChild(div2)
         containerOrdo.appendChild(tombol)
+        duamatriksaktif = true;
+        satumatriksaktif = false;
       
-    }else if (statusTombolTranspose || statusTombolSkalar){
-      let pmatriks1 = document.createElement('p')
-      pmatriks1.innerText = "Matriks 1: "
-
-      let div = document.createElement('div')
-      div.classList.add("inputordomatriks1")
-
-      labelbaris = document.createElement("label")
-      labelbaris.setAttribute("for", "barisMatriks1")
-      labelbaris.innerText = "Baris: "
+      }
+    } else if (satumatriksaktif != true){
+        if (statusTombolSkalar || statusTombolTranspose){
+          containerOrdo.innerHTML = "";
       
-      inputbaris = document.createElement("input")
-      inputbaris.setAttribute("type", "text")
-      inputbaris.setAttribute("id", "barisMatriks1")
-
-      labelkolom = document.createElement("label")
-      labelkolom.setAttribute("for", "kolomMatriks1")
-      labelkolom.innerText = "Kolom: "
-
-      inputkolom = document.createElement("input")
-      inputkolom.setAttribute("type", "text")
-      inputkolom.setAttribute("id", "kolomMatriks1")
-
-      let tombol = document.createElement("button")
-        tombol.innerText = "Bikin Matriks"
-        tombol.classList.add("tombolOrdo")
-        tombol.setAttribute("onclick", "tombolOrdo1Matriks()")
-
-      div.append(labelbaris, inputbaris, labelkolom, inputkolom)
-      containerOrdo.appendChild(pmatriks1)
-      containerOrdo.appendChild(div)
-      containerOrdo.appendChild(tombol)
+          let pmatriks1 = document.createElement('p')
+          pmatriks1.innerText = "Matriks 1: "
+  
+          let div = document.createElement('div')
+          div.classList.add("inputordomatriks1")
+  
+          labelbaris = document.createElement("label")
+          labelbaris.setAttribute("for", "barisMatriks1")
+          labelbaris.innerText = "Baris: "
+          
+          inputbaris = document.createElement("input")
+          inputbaris.setAttribute("type", "text")
+          inputbaris.setAttribute("id", "barisMatriks1")
+  
+          labelkolom = document.createElement("label")
+          labelkolom.setAttribute("for", "kolomMatriks1")
+          labelkolom.innerText = "Kolom: "
+  
+          inputkolom = document.createElement("input")
+          inputkolom.setAttribute("type", "text")
+          inputkolom.setAttribute("id", "kolomMatriks1")
+  
+          let tombol = document.createElement("button")
+            tombol.innerText = "Bikin Matriks"
+            tombol.classList.add("tombolOrdo")
+            tombol.setAttribute("onclick", "tombolOrdo1Matriks()")
+  
+          div.append(labelbaris, inputbaris, labelkolom, inputkolom)
+          containerOrdo.appendChild(pmatriks1)
+          containerOrdo.appendChild(div)
+          containerOrdo.appendChild(tombol)
+          satumatriksaktif = true;
+          duamatriksaktif = false;
+        }
+          
     }
+    // } else if (duamatriksaktif && (statusTombolSkalar || statusTombolTranspose)){
+    //     containerOrdo.innerHTML = "";
+      
+    //     let pmatriks1 = document.createElement('p')
+    //     pmatriks1.innerText = "Matriks 1: "
+
+    //     let div = document.createElement('div')
+    //     div.classList.add("inputordomatriks1")
+
+    //     labelbaris = document.createElement("label")
+    //     labelbaris.setAttribute("for", "barisMatriks1")
+    //     labelbaris.innerText = "Baris: "
+        
+    //     inputbaris = document.createElement("input")
+    //     inputbaris.setAttribute("type", "text")
+    //     inputbaris.setAttribute("id", "barisMatriks1")
+
+    //     labelkolom = document.createElement("label")
+    //     labelkolom.setAttribute("for", "kolomMatriks1")
+    //     labelkolom.innerText = "Kolom: "
+
+    //     inputkolom = document.createElement("input")
+    //     inputkolom.setAttribute("type", "text")
+    //     inputkolom.setAttribute("id", "kolomMatriks1")
+
+    //     let tombol = document.createElement("button")
+    //       tombol.innerText = "Bikin Matriks"
+    //       tombol.classList.add("tombolOrdo")
+    //       tombol.setAttribute("onclick", "tombolOrdo1Matriks()")
+
+    //     div.append(labelbaris, inputbaris, labelkolom, inputkolom)
+    //     containerOrdo.appendChild(pmatriks1)
+    //     containerOrdo.appendChild(div)
+    //     containerOrdo.appendChild(tombol)
+    //     satumatriksaktif = true;
+    //     duamatriksaktif = false;
+    // } 
+      
+    
+    // containerOrdo.innerHTML = ""
+    
 }
 
 function tombolOrdo1Matriks(){
@@ -217,6 +280,7 @@ function tombolOrdo2Matriks(){
 }
 
 function UIOperation(baris1, kolom1, baris2, kolom2){
+      
       containerInput.innerHTML = "";
       let formInput = document.createElement("div");
       formInput.classList.add('formInput');
@@ -370,7 +434,7 @@ function tambahMatriks(){
 
     let divElementmatriks1 = document.createElement('div');
     divElementmatriks1.classList.add('elemen-matriks1');
-    divElementmatriks1.style.gridTemplateColumns = `repeat(${kolomMatriks1.value}, 30px)`;
+    divElementmatriks1.style.gridTemplateColumns = `repeat(${kolomMatriks1.value}, 1fr)`;
 
     var divOperasi = document.createElement("div");
     divOperasi.classList.add("operasi");
@@ -378,7 +442,7 @@ function tambahMatriks(){
 
     var divElementmatriks2 = document.createElement("div");
     divElementmatriks2.classList.add("elemen-matriks2");
-    divElementmatriks2.style.gridTemplateColumns = `repeat(${kolomMatriks2.value}, 30px)`;
+    divElementmatriks2.style.gridTemplateColumns = `repeat(${kolomMatriks2.value}, 1fr)`;
 
     var divSamaDengan = document.createElement("div");
     divSamaDengan.classList.add("sama-dengan");
@@ -386,7 +450,7 @@ function tambahMatriks(){
 
     var divHasil = document.createElement("div");
     divHasil.classList.add("hasil");
-    divHasil.style.gridTemplateColumns = `repeat(${kolomMatriks2.value}, 30px)`;
+    divHasil.style.gridTemplateColumns = `repeat(${kolomMatriks2.value}, )`;
 
 
     for (let i = 1; i <= barisMatriks1.value; i++){
