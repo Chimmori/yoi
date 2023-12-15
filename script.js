@@ -450,7 +450,7 @@ function tambahMatriks(){
 
     var divHasil = document.createElement("div");
     divHasil.classList.add("hasil");
-    divHasil.style.gridTemplateColumns = `repeat(${kolomMatriks2.value}, )`;
+    divHasil.style.gridTemplateColumns = `repeat(${kolomMatriks2.value}, 1fr)`;
 
 
     for (let i = 1; i <= barisMatriks1.value; i++){
